@@ -8,7 +8,6 @@
     "custom-build": "vue-tsc --noEmit && cross-env",
     "preview": "vite preview"
   },
-  "main": "main.ts",
   "dependencies": {
     "jquery": "^3.6.0",
     "vue": "^3.2.25"
