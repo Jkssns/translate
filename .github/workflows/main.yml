@@ -1,0 +1,32 @@
+name: Build and Deploy Vue Application to Github Pages
+on:
+  push:
+    branches:
+    - master
+    - main
+jobs:
+  test:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+
+    - name: npm install, build
+      run: |
+        npm install
+        npm run custom-build -- VITE_APPID=${{ secrets.APPID }} VITE_APPKEY=${{ secrets.KEY }} vite build
+    - name: Create gh-pages
+      run: |
+            cd dist
+            ln -s index.html 404.html
+            git config --global user.email "action@example.com"
+            git config --global user.name "action"
+            git init
+            git add .
+            git commit -m 'update'
+            git push -f https://Jkssns:${{ secrets.GITHUB_TOKEN }}@github.com/Jkssns/translate.git master:gh-pages
+      shell: bash
